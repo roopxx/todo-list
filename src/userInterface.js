@@ -576,15 +576,16 @@ export default class UI {
 
     if (projectName === "Today" || projectName === "This week") {
       const mainProjectName = taskName.split("(")[1].split(")")[0];
-      const mainTaskName = taskName.split(" ")[0];
-      Storage.setTaskDueDate(
-        projectName,
-        taskName,
-        `${newDueDate} (${mainProjectName})`
-      );
-      Storage.setTaskDueDate(mainProjectName, mainTaskName, newDueDate);
-    } else {
+      const mainTaskName = taskName.split("(")[0];
       Storage.setTaskDueDate(projectName, taskName, newDueDate);
+      Storage.setTaskDueDate(mainProjectName, mainTaskName, newDueDate);
+      if (projectName === "Today") {
+        Storage.updateTodayProject();
+      } else {
+        Storage.setTaskDueDate(projectName, taskName, newDueDate);
+      }
+    } else {
+      Storage.setTaskDate(projectName, taskName, newDueDate);
     }
 
     UI.clearTasks();
