@@ -438,4 +438,9 @@ i {
     justify-content: flex-end;
     max-width: 33%;
   }
+
+  .add-task-popup.active {
+    display: grid;
+    gap: 10px;
+  }
 }
